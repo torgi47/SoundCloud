@@ -1,12 +1,31 @@
-
-#display {
+#viewbox {
     position: relative;
     display: block;
     width: 50%;
     height: 500px;
     margin: auto;
     margin-top: 5%;
+    background-color: darkred;
     border: 2px solid black;
-
+    z-index: 5;
     overflow: hidden;
+}
+
+#display {
+    z-index: 10;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tape {
+    width: 75px;
+    height: 50px;
+    animation: tapeSpin 5s linear 1 normal forwards;
+}
+
+@keyframes tapeSpin {
+    from {transform: rotateZ(0deg);}
+    to {transform: rotateZ(180deg);}
 }

@@ -1,9 +1,12 @@
 let leftDoor;
 let rightDoor;
+let tapesDropping = false;
+let tapeInterval;
 
 $(document).ready(function() {
     CreateDoors();
-    OpenDoors();
+    DropTheTapes();
+    setTimeout(StopTheTapes, 40000);
 })
 
 let halfDisplay = $("#display")[0].getBoundingClientRect().width / 2;
@@ -15,7 +18,7 @@ function CreateDoors() {
         left: 0,
         width: halfDisplay,
         height: "100%",
-        "background-color": "red",
+        "background-color": "black",
         "border-right": "1px solid black"
     });
 
@@ -28,11 +31,13 @@ function CreateDoors() {
         left: halfDisplay,
         width: halfDisplay,
         height: "100%",
-        "background-color": "blue",
-        "border-left": "1px solid grey"
+        "background-color": "black",
+        "border-left": "1px solid black"
     });
 
     $("#display").append(rightDoor);
+
+    OpenDoors();
 
 }
 
@@ -50,4 +55,41 @@ function OpenDoors() {
         easing: "linear",
         duration: 20000
     });
+}
+
+function DropTheTapes() {
+    tapesDropping = true;
+    let viewboxWidth = $("#viewbox")[0].getBoundingClientRect().width;
+    let tapeArea = viewboxWidth * 0.7;
+    let intervalFrequency = 500;
+    
+    tapeInterval = setInterval(function() {
+
+        let randAngle = Math.floor(Math.random() * 360);
+        let theTape = $("<img class='tape' src='assets/images/wavy tape.png'>");
+        theTape.css({
+            position: "absolute",
+            top: -100,
+            left: (Math.floor(Math.random() * tapeArea)) + (viewboxWidth * 0.3),
+            transform: `rotateZ(${randAngle}deg)`
+        });
+        $("#viewbox").append(theTape);
+
+        theTape.animate({
+            top: $("#viewbox")[0].getBoundingClientRect().height
+        }, {
+            easing: "linear",
+            duration: 3000,
+            complete: function() {
+                theTape.fadeOut(500, function() {
+                    theTape.remove();
+                });
+            }
+        });
+    }, intervalFrequency);
+}
+
+function StopTheTapes() {
+    clearInterval(tapeInterval);
+    tapesDropping = false;
 }
