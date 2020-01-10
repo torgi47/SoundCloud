@@ -1,0 +1,12 @@
+
+#display {
+    position: relative;
+    display: block;
+    width: 50%;
+    height: 500px;
+    margin: auto;
+    margin-top: 5%;
+    border: 2px solid black;
+
+    overflow: hidden;
+}
