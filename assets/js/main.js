@@ -35,3 +35,19 @@ function CreateDoors() {
     $("#display").append(rightDoor);
 
 }
+
+function OpenDoors() {
+    leftDoor.animate({
+        left: 0 - (halfDisplay * 0.9)
+    }, {
+        easing: "linear",
+        duration: 20000
+    });
+
+    rightDoor.animate({
+        left: parseInt(rightDoor.css("width"), 10) + (halfDisplay * 0.9)
+    }, {
+        easing: "linear",
+        duration: 20000
+    });
+}
