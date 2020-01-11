@@ -109,17 +109,31 @@ function CreateDoors() {
 
 function OpenDoors() {
     leftDoor.animate({
-        left: 0 - (halfDisplay * 0.9)
+        left: 0 - (halfDisplay * 1)
     }, {
         easing: "linear",
-        duration: 20000
+        duration: 20000,
+        complete: function() {
+            leftDoor.animate({
+                left: 0
+            }, {
+                duration: 10000
+            });
+        }
     });
 
     rightDoor.animate({
-        left: parseInt(rightDoor.css("width"), 10) + (halfDisplay * 0.9)
+        left: parseInt(rightDoor.css("width"), 10) + (halfDisplay * 1)
     }, {
         easing: "linear",
-        duration: 20000
+        duration: 20000,
+        complete: function() {
+            rightDoor.animate({
+                left: halfDisplay
+            }, {
+                duration: 10000
+            });
+        }
     });
 }
 

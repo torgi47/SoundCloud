@@ -1,13 +1,20 @@
 body {
     background-color: rgb(171, 223, 218);
-    font-family: 'Cambay', sans-serif;
+    font-family: 'Caveat Brush', cursive;
+    /* font-family: 'Cambay', sans-serif; */
 }
 
 #prophet {
     position: absolute;
+    z-index: 15;
     top: 100%;
     left: 45%;
+    color: rgb(37, 37, 37);
     animation: nameTwitch 2s linear infinite alternate;
+}
+
+.brack {
+    color: darkred;
 }
 
 #viewbox {
