@@ -1,3 +1,15 @@
+body {
+    background-color: rgb(171, 223, 218);
+    font-family: 'Cambay', sans-serif;
+}
+
+#prophet {
+    position: absolute;
+    top: 100%;
+    left: 45%;
+    animation: nameTwitch 2s linear infinite alternate;
+}
+
 #viewbox {
     position: relative;
     display: block;
@@ -5,10 +17,12 @@
     height: 500px;
     margin: auto;
     margin-top: 5%;
-    background-color: darkred;
-    border: 2px solid black;
+    background-image: url("../images/filmgrain2.gif");
+    border: 5px solid black;
     z-index: 5;
     overflow: hidden;
+
+    text-align: center;
 }
 
 #display {
@@ -20,12 +34,23 @@
 }
 
 .tape {
-    width: 75px;
-    height: 50px;
+    width: 100px;
+    height: 70px;
+    opacity: 0.85;
     animation: tapeSpin 5s linear 1 normal forwards;
 }
 
 @keyframes tapeSpin {
     from {transform: rotateZ(0deg);}
-    to {transform: rotateZ(180deg);}
+    to {transform: rotateZ(270deg);}
+}
+
+@keyframes namePulse {
+    from {transform: scale(1, 1);}
+    to {transform: scale(5, 5);}
+}
+
+@keyframes nameTwitch {
+    from {transform: rotateZ(-5deg);}
+    to {transform: rotateZ(2deg);}
 }
