@@ -1,17 +1,81 @@
 let leftDoor;
 let rightDoor;
-let tapesDropping = false;
 let tapeInterval;
-
-$(document).ready(function() {
-    CreateDoors();
-    DropTheTapes();
-    ThrowUpTheName();
-    setTimeout(StopTheTapes, 40000);
-    // setTimeout(ThrowUpTheName, 20000);
-})
+let waveInterval;
 
 let halfDisplay = $("#display")[0].getBoundingClientRect().width / 2;
+
+$(document).ready(function () {
+    CreateDoors();
+    MakeWaves();
+    setTimeout(DropTheTapes, 5000);
+    setTimeout(ThrowUpTheName, 20000);
+
+    setTimeout(StopIntervals, 30000);
+})
+
+function MakeWaves() {
+
+    let intervalFrequency = 300;
+
+    waveInterval = setInterval(function () {
+
+        let randLeft = 0;
+        let maxRight = $("#viewbox")[0].getBoundingClientRect().width;
+        let randTop = Math.floor(Math.random() * $("#viewbox")[0].getBoundingClientRect().height);
+        let randNum = Math.floor(Math.random() * 2);
+
+        if (randNum === 1) {
+            randLeft = maxRight;
+        };
+
+        let wave = $("<h1 class='wave'>");
+        wave.text("~");
+        wave.css({
+            position: "absolute",
+            color: "black",
+            display: "none",
+            top: randTop,
+            left: randLeft
+        });
+
+        $("#viewbox").append(wave);
+
+        switch (randLeft) {
+            case 0:
+                wave.fadeIn(500);
+                wave.animate({
+                    left: maxRight
+                }, {
+                    easing: "linear",
+                    duration: 5000,
+                    complete: function () {
+                        wave.fadeOut(500, function () {
+                            wave.remove();
+                        });
+                    }
+                });
+                break;
+
+            case maxRight:
+                wave.fadeIn(500);
+                wave.animate({
+                    left: -10
+                }, {
+                    easing: "linear",
+                    duration: 5000,
+                    complete: function () {
+                        wave.fadeOut(500, function () {
+                            wave.remove();
+                        });
+                    }
+                });
+                break;
+        }
+
+    }, intervalFrequency);
+
+}
 
 function CreateDoors() {
     leftDoor = $("<div id='leftDoor'>");
@@ -60,16 +124,15 @@ function OpenDoors() {
 }
 
 function DropTheTapes() {
-    tapesDropping = true;
     let viewboxWidth = $("#viewbox")[0].getBoundingClientRect().width;
     let tapeArea = viewboxWidth * 0.6;
     let intervalFrequency = 500;
-    
-    tapeInterval = setInterval(function() {
+
+    tapeInterval = setInterval(function () {
 
         let randAngle = Math.floor(Math.random() * 360);
         let randNum = Math.floor(Math.random() * 2);
-        if (randNum === 0) {randAngle *= -1;}
+        if (randNum === 0) { randAngle *= -1; }
 
         let theTape = $("<img class='tape' src='assets/images/wavy tape.png'>");
         theTape.css({
@@ -89,8 +152,8 @@ function DropTheTapes() {
         }, {
             easing: "linear",
             duration: 3000,
-            complete: function() {
-                theTape.fadeOut(500, function() {
+            complete: function () {
+                theTape.fadeOut(500, function () {
                     theTape.remove();
                 });
             }
@@ -98,9 +161,9 @@ function DropTheTapes() {
     }, intervalFrequency);
 }
 
-function StopTheTapes() {
+function StopIntervals() {
     clearInterval(tapeInterval);
-    tapesDropping = false;
+    clearInterval(waveInterval);
 }
 
 function ThrowUpTheName() {

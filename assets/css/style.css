@@ -40,6 +40,12 @@ body {
     animation: tapeSpin 5s linear 1 normal forwards;
 }
 
+.wave {
+    width: 50px;
+    height: 50px;
+    animation: tapeSpin 2s linear infinite alternate;
+}
+
 @keyframes tapeSpin {
     from {transform: rotateZ(0deg);}
     to {transform: rotateZ(270deg);}
