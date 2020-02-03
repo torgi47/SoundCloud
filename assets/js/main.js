@@ -211,7 +211,10 @@ function ThrowUpTheName() {
     $("#prophet").animate({
         top: prophetTop
     }, {
-        duration: 15000
+        duration: 15000,
+        complete: function() {
+            $("#prophet").css({top: "100%"});
+        }
     })
 
 }
