@@ -1,3 +1,3 @@
-# WTV2 Promo
+# WTV2 "promo"
 
-~[vol.2] | [2020]~
+[vol.2] | [2020]
