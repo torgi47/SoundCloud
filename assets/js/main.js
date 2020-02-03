@@ -2,17 +2,39 @@ let leftDoor;
 let rightDoor;
 let tapeInterval;
 let waveInterval;
+let running = false;
+let theTune = new Audio("assets/audio/city.mp3"); 
 
 let halfDisplay = $("#display")[0].getBoundingClientRect().width / 2;
 
 $(document).ready(function () {
+    ConfigureButtons();
     CreateDoors();
+})
+
+function RunThePromo() {
+    running = true;
+    theTune.play();
+    OpenDoors();
     MakeWaves();
     setTimeout(DropTheTapes, 5000);
     setTimeout(ThrowUpTheName, 20000);
-
     setTimeout(StopIntervals, 30000);
-})
+}
+
+function ConfigureButtons() {
+
+    document.onkeydown = function(event) {
+        switch(event.code) {
+            case "Space":
+                if (!running) {
+                    RunThePromo();
+                }
+                break;
+        }
+    }
+
+}
 
 function MakeWaves() {
 
@@ -103,8 +125,6 @@ function CreateDoors() {
 
     $("#display").append(rightDoor);
 
-    OpenDoors();
-
 }
 
 function OpenDoors() {
@@ -129,7 +149,7 @@ function OpenDoors() {
         duration: 20000,
         complete: function() {
             rightDoor.animate({
-                left: halfDisplay
+                left: halfDisplay                
             }, {
                 duration: 10000
             });
@@ -178,6 +198,9 @@ function DropTheTapes() {
 function StopIntervals() {
     clearInterval(tapeInterval);
     clearInterval(waveInterval);
+    theTune.pause();
+    theTune.currentTime = 0;
+    running = false;
 }
 
 function ThrowUpTheName() {
